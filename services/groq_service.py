@@ -6,7 +6,7 @@ from typing import Optional
 
 class GroqService:
 
-    def __init__(self, api_key: str, model: str = "llama-3.3-70b-versatile", timeout: int = 30) -> None:
+    def __init__(self, api_key: str, model: str = "llama-3.1-8b-instant", timeout: int = 30) -> None:
         self.api_key: str = api_key
         self.model: str = model
         self.timeout: int = timeout

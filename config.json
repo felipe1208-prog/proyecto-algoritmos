@@ -1,8 +1,8 @@
 {
-    "groq_api_key": "",
-    "groq_model": "llama-3.3-70b-versatile",
-    "api_url": "https://api.groq.com/openai/v1/chat/completions",
-    "timeout_seconds": 30,
-    "backup_directory": "./backups",
-    "max_line_length": 80
+  "groq_api_key": "",
+  "groq_model": "llama-3.1-8b-instant",
+  "api_url": "https://api.groq.com/openai/v1/chat/completions",
+  "timeout_seconds": 30,
+  "backup_directory": "./backups",
+  "max_line_length": 80
 }
