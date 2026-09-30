@@ -27,7 +27,7 @@ Validación y Ordenamiento:
   gravedad sort mergesort    : Ordena alertas por gravedad con Mergesort.
   gravedad sort shellsort    : Ordena alertas por gravedad con Shellsort.
 
-Asistente IA (Groq & Queue FIFO):
+Asistente IA (Gemini & Queue FIFO):
   analyze                    : Encola el archivo activo para revisión con IA.
   queue-status               : Visualiza los tickets de la cola FIFO.
   queue-status <id>          : Muestra el diagnóstico generado por la IA para ese ticket.
