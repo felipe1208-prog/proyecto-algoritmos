@@ -20,5 +20,5 @@ class AnalyzeCommand(Command):
 
         ticket = self.context.enqueue_analysis(active)
         print(f"Ticket #{ticket.request_id} encolado exitosamente en la cola FIFO.")
-        print("El worker en segundo plano procesará la petición con la IA de Groq.")
+        print("El worker en segundo plano procesará la petición con la IA de Gemini.")
         print("Consulte el progreso con: queue-status")

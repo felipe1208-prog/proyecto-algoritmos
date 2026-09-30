@@ -27,7 +27,7 @@ class QueueStatusCommand(Command):
             print(f"\n--- Detalle Ticket #{found.request_id} ({found.file_name}) ---")
             print(f"Estado: {found.status}")
             if found.status == "COMPLETED":
-                print("\n[Respuesta de Groq AI]:\n")
+                print("\n[Respuesta de Gemini AI]:\n")
                 print(found.response)
             elif found.status == "FAILED":
                 print(f"\n[Fallo]: {found.error_message}")
@@ -40,7 +40,7 @@ class QueueStatusCommand(Command):
             print("No se han emitido tickets de análisis en esta sesión.")
             return
 
-        print("\n--- Estado de la Cola FIFO (IA Groq) ---")
+        print("\n--- Estado de la Cola FIFO (IA Gemini) ---")
         for ticket in self.context.requests_history:
             print(f"  {ticket.summary()}")
         print("----------------------------------------")
