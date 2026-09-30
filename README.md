@@ -113,7 +113,6 @@ edit def sumar(a, b):
 edit     return a + b
 show
 check
-line sort mergesort
 analyze
 queue-status
 queue-status 1
