@@ -21,6 +21,14 @@ class ConfigCommand(Command):
             key = args[1]
             val = " ".join(args[2:]).strip("\"'")
             if self.context.config_service.set(key, val):
+                # Sincronización en caliente con el servicio de Gemini
+                if key == "gemini_model":
+                    self.context.ai_service.model = val
+                elif key == "gemini_api_key":
+                    self.context.ai_service.api_key = val
+                elif key == "timeout_seconds":
+                    self.context.ai_service.timeout = int(val)
+
                 print(f"Parámetro '{key}' actualizado a '{val}'.")
             else:
                 print(f"Error al persistir la clave '{key}'.")

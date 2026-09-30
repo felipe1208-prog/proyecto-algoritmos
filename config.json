@@ -1,7 +1,6 @@
 {
-  "groq_api_key": "",
-  "groq_model": "llama-3.1-8b-instant",
-  "api_url": "https://api.groq.com/openai/v1/chat/completions",
+  "gemini_api_key": "",
+  "gemini_model": "gemini-2.5-flash",
   "timeout_seconds": 30,
   "backup_directory": "./backups",
   "max_line_length": 80

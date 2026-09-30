@@ -3,15 +3,15 @@ import time
 from typing import Optional
 from structures.queue import Queue
 from models.analysis_request import AnalysisRequest
-from services.groq_service import GroqService
+from services.gemini_service import GeminiService
 
 
 class RequestWorker(threading.Thread):
 
-    def __init__(self, request_queue: Queue, groq_service: GroqService, poll_interval: float = 0.5) -> None:
+    def __init__(self, request_queue: Queue, ai_service: GeminiService, poll_interval: float = 0.5) -> None:
         super().__init__(daemon=True)
         self.request_queue: Queue = request_queue
-        self.groq_service: GroqService = groq_service
+        self.ai_service: GeminiService = ai_service
         self.poll_interval: float = poll_interval
         self._is_running: bool = False
         self._lock: threading.Lock = threading.Lock()
@@ -34,7 +34,7 @@ class RequestWorker(threading.Thread):
     def _process_request(self, request: AnalysisRequest) -> None:
         request.mark_processing()
         try:
-            ai_result = self.groq_service.analyze_code(
+            ai_result = self.ai_service.analyze_code(
                 code_content=request.code_content,
                 file_name=request.file_name
             )

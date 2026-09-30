@@ -6,9 +6,8 @@ from typing import Any, Dict, Optional
 class ConfigService:
 
     DEFAULT_CONFIG: Dict[str, Any] = {
-        "groq_api_key": "",
-        "groq_model": "llama-3.3-70b-versatile",
-        "api_url": "https://api.groq.com/openai/v1/chat/completions",
+        "gemini_api_key": "",
+        "gemini_model": "gemini-1.5-flash",
         "timeout_seconds": 30,
         "backup_directory": "./backups",
         "max_line_length": 80
@@ -34,16 +33,15 @@ class ConfigService:
                             key = key.strip()
                             val = val.strip().strip("'\"")
                             if key == "apiAI" and val:
-                                self._config_data["groq_api_key"] = val
+                                self._config_data["gemini_api_key"] = val
                                 os.environ["apiAI"] = val
             except OSError:
                 pass
 
-
-        if not self._config_data.get("groq_api_key"):
+        if not self._config_data.get("gemini_api_key"):
             env_val = os.environ.get("apiAI")
             if env_val:
-                self._config_data["groq_api_key"] = env_val
+                self._config_data["gemini_api_key"] = env_val
 
     def load_config(self) -> None:
         if not os.path.exists(self.config_path):

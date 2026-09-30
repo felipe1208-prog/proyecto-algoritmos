@@ -6,7 +6,7 @@ from models.analysis_request import AnalysisRequest
 from models.diagnostic import Diagnostic
 from services.config_service import ConfigService
 from services.static_analyzer import StaticAnalyzer
-from services.groq_service import GroqService
+from services.gemini_service import GeminiService
 from services.request_worker import RequestWorker
 
 
@@ -14,29 +14,30 @@ class EditorContext:
 
     def __init__(self, config_path: str = "config.json", env_path: str = ".env") -> None:
         self.config_service: ConfigService = ConfigService(config_path=config_path, env_path=env_path)
-        
+
         max_len = int(self.config_service.get("max_line_length", 80))
         self.static_analyzer: StaticAnalyzer = StaticAnalyzer(max_line_length=max_len)
 
-        api_key = str(self.config_service.get("groq_api_key", ""))
-        model_name = str(self.config_service.get("groq_model", "llama-3.3-70b-versatile"))
+        # Configuración del servicio Gemini
+        api_key = str(self.config_service.get("gemini_api_key", ""))
+        model_name = str(self.config_service.get("gemini_model", "gemini-1.5-flash"))
         timeout = int(self.config_service.get("timeout_seconds", 30))
 
-        self.groq_service: GroqService = GroqService(api_key=api_key, model=model_name, timeout=timeout)
+        self.ai_service: GeminiService = GeminiService(api_key=api_key, model=model_name, timeout=timeout)
         self.request_queue: Queue = Queue()
 
         self.requests_history: LinkedList = LinkedList()
         self._request_counter: int = 0
 
+        # Hilo worker en segundo plano
         self.worker: RequestWorker = RequestWorker(
             request_queue=self.request_queue,
-            groq_service=self.groq_service
+            ai_service=self.ai_service
         )
         self.worker.start()
 
         self.open_files: LinkedList = LinkedList()
         self.active_file: Optional[CodeFile] = None
-
         self.last_diagnostics: List[Diagnostic] = []
 
     def create_file(self, file_name: str, content: str = "") -> Optional[CodeFile]:
